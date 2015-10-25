@@ -2,15 +2,16 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>TPPJ</title>
+    <title>{{cont.template_title}}</title>
 </head>
 <body>
     <header>
-        <p>TPPJ -> Trois Plats Par Jour : Faire les courses n'a jamais été aussi simple</p>
+        <p>{{cont.template_header}}</p>
+        <p>{{{cont.template_nav_home}}} {{{cont.template_nav_choice}}} {{{cont.template_nav_receipe}}}</p>
     </header>
     {{{body}}}
     <footer>
-        <p>Imaginé et conçu par Jokeur</p>
+        <p>{{cont.template_footer}}</p>
     </footer>
 </body>
 </html>
