@@ -1,0 +1,35 @@
+#####################################################################################
+#                                                                                   #
+#                                                                                   #
+#                                                                                   #
+#  3 plats par jour                                                                 #
+#                                                                                   #
+#                                                                                   #
+#                                                                                   #
+#####################################################################################
+
+Principe : selection d'une période (en nombre de jour ou en nombre de semaine ou par mois), à partir de cette période
+l'appli ressort une liste de plat classée par jour (ptit déjeuner, déjeuner, dîner). L'utilisateur peut ressortir une
+liste de course par mois, semaine ou période. L'utilisateur peut choisir son régime : omnivore, végé/poisson, végétarien,
+végétalien/vegan -> 4 champs (TODO : selection fine avec toutes les catégories d'aliments et 4 template dispo).
+
+''
+
+bdd : 
+- mongobd
+- collections : ingrédients, recettes
+- ingredients
+    {
+        _id: "libellé",
+        cat: "catégorie",
+        un: "unité"
+    }
+- recettes
+{
+    _id: "nom recette",
+    listeIng: [{"1": "", "qtt": },
+               {"2": "", "qtt": },
+               {"3": "", "qtt": }],
+    instructions: "",
+    cat: ""
+}
