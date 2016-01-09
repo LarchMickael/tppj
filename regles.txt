@@ -1,0 +1,12 @@
+nom de fichier : pas de carac spé, de maj, d'espace, évite underscore et privilégie tirets
+controller : partie traitement des pages
+	     nom : treatment-recipe.php
+		   si classe : class-contact.php
+
+models :
+	c'est le CRUD
+	connexion avec la base de donnée
+	ex: model.article.php -> gère les requetes pour les atricles (un modee par table)
+	
+
+romain corady apache
