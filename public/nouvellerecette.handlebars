@@ -1,1 +1,55 @@
-en cours de réalisation
+<div class="wrap">
+	<div>
+		<form id="receipes" action="">
+			<fieldset>
+				<legend>{{cont.fieldset_legend}}</legend>
+				<span class="span_form">
+					<label for="receipe_title">{{cont.input_receipe_title_label}}</label>
+					<input id="receipe_title" type="text" placeholder="{{cont.input_receipe_placeholder}}" />
+				</span>
+				<span class="span_form">
+					<label for="nbr_pers">{{cont.input_nbr_pers_label}}</label>
+					<select name="nbr_pers" id="nbr_pers">
+						<option value="1">{{cont.input_nbr_pers_option1}}</option>
+						<option value="2">{{cont.input_nbr_pers_option2}}</option>
+						<option value="3">{{cont.input_nbr_pers_option3}}</option>
+						<option value="4">{{cont.input_nbr_pers_option4}}</option>
+						<option value="5">{{cont.input_nbr_pers_option5}}</option>
+						<option value="6">{{cont.input_nbr_pers_option6}}</option>
+						<option value="7">{{cont.input_nbr_pers_option7}}</option>
+					</select>
+				</span>
+				<span class="span_form">
+					<label for="prep_time">{{cont.input_prep_time_label}}</label>
+					<input id="prep_time" type="number" min="5" max="600" step="5" placeholder="5"/>
+					<span>{{cont.input_prep_time_unit}}</span>
+				</span>
+				<span class="span_form">
+					<label for="ingredients">{{{cont.input_ingredients_label}}}</label>
+					<textarea id="receipe_ingredients" placeholder="{{{cont.input_ingredients_placeholder}}}" cols="55" wrap="hard"></textarea>
+				</span>
+				<span class="span_form">
+					<label for="instructions">{{cont.input_instructions_label}}</label>
+					<textarea id="instructions" placeholder="{{{cont.input_instructions_placeholder}}}" cols="55" wrap="hard"></textarea>
+				</span>
+			</fieldset>
+			<input id="receipe_btn" type="button" value="{{cont.input_receipe_button}}">
+		</form>
+		<form id="ingredient" action="">
+			<legend>{{cont.ing_input_legend}}</legend>
+			<span class="span_form">
+				<input type="text" placeholder="{{cont.ing_input_nom_placeholder}}" />
+			</span>
+			<span class="span_form">
+				<input type="text" placeholder="{{cont.ing_input_cat_placeholder}}" />
+			</span>
+			<span class="span_form">
+				<select name="ing_unity" id="ing_unity">
+					<option value="ml">{{cont.ing_input_unity_option1}}</option>
+					<option value="unité">{{cont.ing_input_unity_option2}}</option>
+					<option value="gr">{{cont.ing_input_unity_option3}}</option>
+				</select>
+			</span>
+		</form>
+	</div>
+</div>

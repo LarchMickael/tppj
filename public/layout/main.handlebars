@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>{{cont.template_title}}</title>
+    <link type="text/css" href="/css/style.css" rel="stylesheet"/>
 </head>
 <body>
     <header>
-        <p>{{cont.template_header}}</p>
-        <p>{{{cont.template_nav_home}}} {{{cont.template_nav_choice}}} {{{cont.template_nav_receipe}}}</p>
+        <div>
+            <span><img src="img/icone.jpg" alt="icone du site" /></span>
+            <span>{{{cont.template_header}}}</span>
+        </div>
+        <nav>
+            <ul>
+                <li>{{{cont.template_nav_home}}}</li>
+                <li>{{{cont.template_nav_choice}}}</li>
+                <li>{{{cont.template_nav_receipe}}}</li>
+            </ul>
+        </nav>
     </header>
     {{{body}}}
     <footer>

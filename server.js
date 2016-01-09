@@ -1,6 +1,9 @@
 var express = require('express');
 var exphbs = require('express3-handlebars');
 var fs = require('fs');
+var mongoclient = require('mongodb').mongoclient;
+var assert = require('assert');
+
 
 //Configuration serveur
 app = express();
@@ -10,6 +13,7 @@ app.use(express.static('public'))
 .set('view engine', 'handlebars');
 exphbs.ExpressHandlebars.prototype.layoutsDir = 'public/layout/';
 contFr = JSON.parse(fs.readFileSync('public/contenu/fr.json', 'utf8'));
+var url = 'mongodb://localhost:27017/./BDD/BDD.json';
 
 
 //Routage

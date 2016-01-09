@@ -1,17 +1,19 @@
 {
   "name": "TPPJ",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Principe : selection d'une p�riode (en nombre de jour ou en nombre de semaine ou par mois), � partir de cette p�riode\r l'appli ressort une liste de plat class�e par jour (ptit d�jeuner, d�jeuner, d�ner). L'utilisateur peut ressortir une\r liste de course par mois, semaine ou p�riode. L'utilisateur peut choisir son r�gime : omnivore, v�g�/poisson, v�g�tarien,\r v�g�talien/vegan -> 4 champs (TODO : selection fine avec toutes les cat�gories d'aliments et 4 template dispo).",
   "main": "server.js",
+  "dependencies": {
+    "express": "~4.13.3",
+    "express3-handlebars": "~0.5.2",
+    "path": "~0.12.7",
+    "mongodb": "~2.0.47"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
-  "license": "BSD-2-Clause",
-  "dependencies": {
-    "express": "~4.13.3",
-    "express3-handlebars": "~0.5.2",
-    "path": "~0.12.7"
-  }
+  "author": "Jokeur",
+  "license": "BSD-2-Clause"
 }

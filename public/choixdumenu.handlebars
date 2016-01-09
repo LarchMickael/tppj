@@ -1,30 +1,33 @@
-<form>
-    <fieldset>
-        <legend>{{cont.choice_diet}}</legend>
-        <label for="omnivore">{{cont.choice_diet_omni}}</label>
-        <input name="regime" id="omnivore" type="radio" value="omnivore"/>
-        <label for="vegetalien">{{cont.choice_diet_vegel}}</label>
-        <input name="regime" id="vegetalien" type="radio" value="vegetalien"/>
-        <label for="vegetarien">{{cont.choice_diet_veger}}</label>
-        <input name="regime" id="vegetarien" type="radio" value="vegetarien"/>
-    </fieldset>
-    <fieldset>
-        <legend>{{cont.choice_meal}}</legend>
-        <label for="matin">{{cont.choice_meal_morning}}</label>
-        <input type="checkbox" id="matin" checked />
-        <label for="midi">{{cont.choice_meal_noon}}</label>
-        <input type="checkbox" id="midi" checked />
-        <label for="soir">{{cont.choice_meal_evening}}</label>
-        <input type="checkbox" id="soir" checked />
-    </fieldset>
-    <fieldset>
-        <legend>{{cont.choice_span}}</legend>
-        <label for="periode">{{cont.choice_span_question}}</label>
-        <select name="periode" id="periode">
-            <option value="jour">{{cont.choice_span_option1}}</option>
-            <option value="semaine">{{cont.choice_span_option2}}</option>
-            <option value="mois">{{cont.choice_span_option3}}</option>
-        </select>
-    </fieldset>
-    <input type="submit" value="{{cont.choice_button}}"/>
-</form>
+<div class="wrap">
+        <div>
+            <fieldset class="choice">
+                <legend>{{cont.choice_diet}}</legend>
+                <label for="omnivore">{{cont.choice_diet_omni}}</label>
+                <input name="regime" id="omnivore" type="radio" value="omnivore"/>
+                <label for="vegetalien">{{cont.choice_diet_vegel}}</label>
+                <input name="regime" id="vegetalien" type="radio" value="vegetalien"/>
+                <label for="vegetarien">{{cont.choice_diet_veger}}</label>
+                <input name="regime" id="vegetarien" type="radio" value="vegetarien"/>
+            </fieldset>
+            <fieldset class="choice">
+                <legend>{{cont.choice_meal}}</legend>
+                <label for="matin">{{cont.choice_meal_morning}}</label>
+                <input type="checkbox" id="matin" checked />
+                <label for="midi">{{cont.choice_meal_noon}}</label>
+                <input type="checkbox" id="midi" checked />
+                <label for="soir">{{cont.choice_meal_evening}}</label>
+                <input type="checkbox" id="soir" checked />
+            </fieldset>
+            <fieldset class="choice">
+                <legend>{{cont.choice_span}}</legend>
+                <label for="periode">{{cont.choice_span_question}}</label>
+                <select name="periode" id="periode">
+                    <option value="jour">{{cont.choice_span_option1}}</option>
+                    <option value="semaine">{{cont.choice_span_option2}}</option>
+                    <option value="mois">{{cont.choice_span_option3}}</option>
+                </select>
+            </fieldset>
+            <input type="submit" value="{{cont.choice_button}}"/>
+        </form>
+    </div>
+</div>
