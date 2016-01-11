@@ -1,0 +1,154 @@
+#------------------------------------------------------------
+#        Script MySQL.
+#------------------------------------------------------------
+
+USE tppjdb;
+
+#------------------------------------------------------------
+# Table: tpj_units
+#------------------------------------------------------------
+
+CREATE TABLE tpj_units(
+        unt_id    int (11) Auto_increment  NOT NULL ,
+        unt_label TinyText NOT NULL ,
+        ing_id    Int NOT NULL ,
+        PRIMARY KEY (unt_id )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: tpj_country
+#------------------------------------------------------------
+
+CREATE TABLE tpj_country(
+        cou_code  Varchar (3) NOT NULL ,
+        cou_label TinyText NOT NULL ,
+        rec_id    Int ,
+        PRIMARY KEY (cou_code )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: tpj_ingredients
+#------------------------------------------------------------
+
+CREATE TABLE tpj_ingredients(
+        ing_id           int (11) Auto_increment  NOT NULL ,
+        ing_label        TinyText NOT NULL ,
+        unt_id           int (11) Auto_increment  NOT NULL ,
+        unt_id_tpj_units Int NOT NULL ,
+        PRIMARY KEY (ing_id )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: tpj_users
+#------------------------------------------------------------
+
+CREATE TABLE tpj_users(
+        use_id        int (11) Auto_increment  NOT NULL ,
+        use_login     Text NOT NULL ,
+        use_password  Text NOT NULL ,
+        use_lastname  TinyText ,
+        use_firstname TinyText ,
+        use_mail      Text ,
+        PRIMARY KEY (use_id ) ,
+        UNIQUE (use_login ,use_password )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: tpj_diet
+#------------------------------------------------------------
+
+CREATE TABLE tpj_diet(
+        die_id    int (11) Auto_increment  NOT NULL ,
+        die_label TinyText NOT NULL ,
+        PRIMARY KEY (die_id )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: tpj_meal
+#------------------------------------------------------------
+
+CREATE TABLE tpj_meal(
+        mea_id    int (11) Auto_increment  NOT NULL ,
+        mea_label TinyText NOT NULL ,
+        PRIMARY KEY (mea_id )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: tpj_recipe
+#------------------------------------------------------------
+
+CREATE TABLE tpj_recipe(
+        rec_id               int (11) Auto_increment  NOT NULL ,
+        rec_label            TinyText NOT NULL ,
+        rec_link             Text NOT NULL ,
+        rec_tppj             Char (25) NOT NULL ,
+        mea_id               int (11) Auto_increment  NOT NULL ,
+        die_id               int (11) Auto_increment  NOT NULL ,
+        cou_code             Varchar (3) NOT NULL ,
+        cou_code_tpj_country Varchar (3) NOT NULL ,
+        PRIMARY KEY (rec_id )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: contient
+#------------------------------------------------------------
+
+CREATE TABLE contient(
+        quantity Int NOT NULL ,
+        ing_id   Int NOT NULL ,
+        rec_id   Int NOT NULL ,
+        PRIMARY KEY (ing_id ,rec_id )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: is
+#------------------------------------------------------------
+
+CREATE TABLE is(
+        mea_id Int NOT NULL ,
+        rec_id Int NOT NULL ,
+        PRIMARY KEY (mea_id ,rec_id )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: feat
+#------------------------------------------------------------
+
+CREATE TABLE feat(
+        rec_id Int NOT NULL ,
+        die_id Int NOT NULL ,
+        PRIMARY KEY (rec_id ,die_id )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: choose
+#------------------------------------------------------------
+
+CREATE TABLE choose(
+        use_id Int NOT NULL ,
+        rec_id Int NOT NULL ,
+        PRIMARY KEY (use_id ,rec_id )
+)ENGINE=InnoDB;
+
+ALTER TABLE tpj_units ADD CONSTRAINT FK_tpj_units_ing_id FOREIGN KEY (ing_id) REFERENCES tpj_ingredients(ing_id);
+ALTER TABLE tpj_country ADD CONSTRAINT FK_tpj_country_rec_id FOREIGN KEY (rec_id) REFERENCES tpj_recipe(rec_id);
+ALTER TABLE tpj_ingredients ADD CONSTRAINT FK_tpj_ingredients_unt_id_tpj_units FOREIGN KEY (unt_id_tpj_units) REFERENCES tpj_units(unt_id);
+ALTER TABLE tpj_recipe ADD CONSTRAINT FK_tpj_recipe_cou_code_tpj_country FOREIGN KEY (cou_code_tpj_country) REFERENCES tpj_country(cou_code);
+ALTER TABLE contient ADD CONSTRAINT FK_contient_ing_id FOREIGN KEY (ing_id) REFERENCES tpj_ingredients(ing_id);
+ALTER TABLE contient ADD CONSTRAINT FK_contient_rec_id FOREIGN KEY (rec_id) REFERENCES tpj_recipe(rec_id);
+ALTER TABLE is ADD CONSTRAINT FK_is_mea_id FOREIGN KEY (mea_id) REFERENCES tpj_meal(mea_id);
+ALTER TABLE is ADD CONSTRAINT FK_is_rec_id FOREIGN KEY (rec_id) REFERENCES tpj_recipe(rec_id);
+ALTER TABLE feat ADD CONSTRAINT FK_feat_rec_id FOREIGN KEY (rec_id) REFERENCES tpj_recipe(rec_id);
+ALTER TABLE feat ADD CONSTRAINT FK_feat_die_id FOREIGN KEY (die_id) REFERENCES tpj_diet(die_id);
+ALTER TABLE choose ADD CONSTRAINT FK_choose_use_id FOREIGN KEY (use_id) REFERENCES tpj_users(use_id);
+ALTER TABLE choose ADD CONSTRAINT FK_choose_rec_id FOREIGN KEY (rec_id) REFERENCES tpj_recipe(rec_id);
