@@ -27,6 +27,9 @@
         } );
         $('#modrecipe').on('mousedown', function(){
             $(this).attr('href', "?page=modrecipe&id="+table.row('.selected').data()[0]);
+        });   
+        $('#delrecipe').on('mousedown', function(){
+            $(this).attr('href', "?page=delrecipe&id="+table.row('.selected').data()[0]);
         });        
     } );
 </script>
@@ -47,6 +50,7 @@
 				<td>Titre</td>
 				<td>lien</td>
 				<td>tppj</td>
+				<td>Type de plat</td>
 				<td>Type de repas</td>
 				<td>Type de régime</td>
 				<td>Pays d'origine</td>
@@ -59,8 +63,9 @@
 					<td><?php echo $recipe['rec_title'] ?></td>
 					<td><?php echo $recipe['rec_link'] ?></td>
 					<td><?php if($recipe['rec_tppj'] == 1) echo "oui"; else echo "non"; ?></td>
-					<td><?php $meals->get($recipe['mea_id']); echo $meals->mea_label; ?></td>
-					<td><?php $diets->get($recipe['die_id']); echo $diets->die_label; ?></td>
+					<td> none </td>
+					<td> none </td>
+					<td> none </td>
 					<td><?php $countries->get($recipe['cou_code']); echo $countries->cou_name; ?></td>
 				</tr> <?php
 		} ?>

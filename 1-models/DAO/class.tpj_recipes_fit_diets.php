@@ -63,7 +63,7 @@ class tpj_recipes_fit_diets{
 		$ret = false;
 
 		$sql = " SELECT rec_id, "
-					  ."die_id "
+					  ." die_id "
 		      ." FROM tpj_recipes_fit_diets "
 		      ." WHERE rec_id = :rec_id ";
 
@@ -97,7 +97,7 @@ class tpj_recipes_fit_diets{
     public function getAll($filter = null){
         $ret = false;
         $sql = " SELECT rec_id, "
-					  ."die_id "
+					  ." die_id "
               ." FROM tpj_recipes_fit_diets ";
         if(!empty($filter) && isset($filter)){
             $sql .=  " WHERE ". $filter;
@@ -119,6 +119,37 @@ class tpj_recipes_fit_diets{
     }
 
 /**
+ * Récupérer toutes les types de régime associés à une recette
+ * @param int $rec_id id recherché
+ * @return array de int
+ */
+
+    public function getAllDiets($rec_id){
+        $ret = false;
+        $sql = " SELECT die_id "
+              ." FROM tpj_recipes_fit_diets "
+              ." WHERE rec_id = :rec_id ";
+        
+        $req = $this->bdd->prepare($sql);
+        $req->bindParam(":rec_id", $rec_id);
+
+        try{
+            $req->execute();
+        } catch (PDOException $ex) {
+            die("Erreur PDO : ".$ex);
+        }
+
+        $ret = $req->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($ret as &$val){
+            $val = $val['die_id'];
+        }
+
+        return $ret;
+
+    }      
+
+/**
  * Récupérer l'objet dans la base de données
  * @param 
  * @return booléen
@@ -128,11 +159,12 @@ class tpj_recipes_fit_diets{
 
 	    $ret = false;
 
-        $sql = " INSERT INTO tpj_recipes_fit_diets ( die_id ) "
-              ." VALUES ( :die_id ) ";
+        $sql = " INSERT INTO tpj_recipes_fit_diets ( die_id, rec_id ) "
+              ." VALUES ( :die_id, :rec_id ) ";
 
         $req = $this->bdd->prepare($sql);
         $req->bindParam(":die_id", $this->die_id);
+        $req->bindParam(":rec_id", $this->rec_id);
 
         try{
             $req->execute();

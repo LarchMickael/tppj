@@ -63,7 +63,7 @@ class tpj_recipes_is_meals{
 		$ret = false;
 
 		$sql = " SELECT mea_id, "
-					  ."rec_id "
+					  ." rec_id "
 		      ." FROM tpj_recipes_is_meals "
 		      ." WHERE mea_id = :mea_id ";
 
@@ -97,7 +97,7 @@ class tpj_recipes_is_meals{
     public function getAll($filter = null){
         $ret = false;
         $sql = " SELECT mea_id, "
-					  ."rec_id "
+					  ." rec_id "
               ." FROM tpj_recipes_is_meals ";
         if(!empty($filter) && isset($filter)){
             $sql .=  " WHERE ". $filter;
@@ -119,6 +119,37 @@ class tpj_recipes_is_meals{
     }
 
 /**
+ * Récupérer toutes les types de repas associés à une recette
+ * @param int $rec_id id recherché
+ * @return array de int
+ */
+
+    public function getAllMeals($rec_id){
+        $ret = false;
+        $sql = " SELECT mea_id "
+              ." FROM tpj_recipes_is_meals "
+              ." WHERE rec_id = :rec_id ";
+        
+        $req = $this->bdd->prepare($sql);
+        $req->bindParam(":rec_id", $rec_id);
+
+        try{
+            $req->execute();
+        } catch (PDOException $ex) {
+            die("Erreur PDO : ".$ex);
+        }
+
+        $ret = $req->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($ret as &$val){
+            $val = $val['mea_id'];
+        }
+
+        return $ret;
+
+    }    
+
+/**
  * Récupérer l'objet dans la base de données
  * @param 
  * @return booléen
@@ -128,11 +159,12 @@ class tpj_recipes_is_meals{
 
 	    $ret = false;
 
-        $sql = " INSERT INTO tpj_recipes_is_meals ( rec_id ) "
-              ." VALUES ( :rec_id ) ";
+        $sql = " INSERT INTO tpj_recipes_is_meals ( rec_id, mea_id ) "
+              ." VALUES ( :rec_id, :mea_id ) ";
 
         $req = $this->bdd->prepare($sql);
         $req->bindParam(":rec_id", $this->rec_id);
+        $req->bindParam(":mea_id", $this->mea_id);
 
         try{
             $req->execute();
@@ -183,14 +215,14 @@ class tpj_recipes_is_meals{
  * @return booléen
  */
 
-    public function remove($mea_id){
+    public function remove($rec_id){
 
         $ret = false;
 
-        $sql = " DELETE FROM tpj_recipes_is_meals WHERE mea_id = :mea_id ";
+        $sql = " DELETE FROM tpj_recipes_is_meals WHERE rec_id = :rec_id ";
 
         $req = $this->bdd->prepare($sql);
-        $req->bindParam(":mea_id", $mea_id);
+        $req->bindParam(":rec_id", $rec_id);
 
         try{
             $req->execute();

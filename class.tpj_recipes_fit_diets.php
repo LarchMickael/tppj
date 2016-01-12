@@ -1,19 +1,11 @@
 <?php
 include_once('1-models/DAO/class.CPDO.php');
 
-class tpj_users_recipes{
+class tpj_recipes_fit_diets{
 
     private $bdd;
-    protected $use_id;
     protected $rec_id;
-
-    function getUse_id() {
-        return $this->use_id;
-    }
-
-    function setUse_id($use_id) {
-        $this->use_id = $use_id;
-    }
+    protected $die_id;
 
     function getRec_id() {
         return $this->rec_id;
@@ -23,14 +15,22 @@ class tpj_users_recipes{
         $this->rec_id = $rec_id;
     }
 
+    function getDie_id() {
+        return $this->die_id;
+    }
+
+    function setDie_id($die_id) {
+        $this->die_id = $die_id;
+    }
+
     public function __get($name) {
         $ret=null;
         switch($name){
-            case "use_id":
-                $ret = $this->getUse_id();
-            break;
             case "rec_id":
                 $ret = $this->getRec_id();
+            break;
+            case "die_id":
+                $ret = $this->getDie_id();
             break;
         }
         return $ret;
@@ -38,11 +38,11 @@ class tpj_users_recipes{
 
     public function __set($name, $value) {
         switch($name){
-            case "use_id":
-                $this->setUse_id($value);
-            break;
             case "rec_id":
                 $this->setRec_id($value);
+            break;
+            case "die_id":
+                $this->setDie_id($value);
             break;
         }
     }
@@ -55,20 +55,20 @@ class tpj_users_recipes{
 
 /**
  * Récupérer l'objet avec l'id passé en paramêtre
- * @param int $use_id id de tpj_users_recipes
+ * @param int $rec_id id de tpj_recipes_fit_diets
  * @return booléen
  */
 
-    public function get($use_id){
+    public function get($rec_id){
 		$ret = false;
 
-		$sql = " SELECT use_id, "
-					  ." rec_id "
-		      ." FROM tpj_users_recipes "
-		      ." WHERE use_id = :use_id ";
+		$sql = " SELECT rec_id, "
+					  ." die_id "
+		      ." FROM tpj_recipes_fit_diets "
+		      ." WHERE rec_id = :rec_id ";
 
 		$req = $this->bdd->prepare($sql);
-		$req->bindParam(":use_id", $use_id);
+		$req->bindParam(":rec_id", $rec_id);
 
 		try{
 			$req->execute();
@@ -78,8 +78,8 @@ class tpj_users_recipes{
 
 		if($req->rowCount() > 0){
 			$res = $req->fetch(PDO::FETCH_ASSOC);
-			$this->use_id = $res["use_id"];
 			$this->rec_id = $res["rec_id"];
+			$this->die_id = $res["die_id"];
 
 			$ret = true;
 		}
@@ -96,9 +96,9 @@ class tpj_users_recipes{
 
     public function getAll($filter = null){
         $ret = false;
-        $sql = " SELECT use_id, "
-					  ." rec_id "
-              ." FROM tpj_users_recipes ";
+        $sql = " SELECT rec_id, "
+					  ." die_id "
+              ." FROM tpj_recipes_fit_diets ";
         if(!empty($filter) && isset($filter)){
             $sql .=  " WHERE ". $filter;
         }
@@ -128,11 +128,11 @@ class tpj_users_recipes{
 
 	    $ret = false;
 
-        $sql = " INSERT INTO tpj_users_recipes ( rec_id ) "
-              ." VALUES ( :rec_id ) ";
+        $sql = " INSERT INTO tpj_recipes_fit_diets ( die_id ) "
+              ." VALUES ( :die_id ) ";
 
         $req = $this->bdd->prepare($sql);
-        $req->bindParam(":rec_id", $this->rec_id);
+        $req->bindParam(":die_id", $this->die_id);
 
         try{
             $req->execute();
@@ -157,18 +157,18 @@ class tpj_users_recipes{
 
         $ret = false;
 
-        $sql =   " UPDATE tpj_users_recipes "
-				." SET rec_id = :rec_id "
-                ." WHERE use_id = :use_id ";
+        $sql =   " UPDATE tpj_recipes_fit_diets "
+				." SET die_id = :die_id "
+                ." WHERE rec_id = :rec_id ";
 
         $req = $this->bdd->prepare($sql);
-        $req->bindParam(":use_id", $this->use_id);
         $req->bindParam(":rec_id", $this->rec_id);
+        $req->bindParam(":die_id", $this->die_id);
 
         try{
             $req->execute();
             $ret = true;
-            $this->get($this->use_id);
+            $this->get($this->rec_id);
         } catch (PDOException $ex) {
             die("Erreur PDO : ".$ex);
         }
@@ -179,18 +179,18 @@ class tpj_users_recipes{
 
 /**
  * Supprime l'objet correspondant à l'id passé en paramêtre dans la base de donnée
- * @param int $use_id id visé
+ * @param int $rec_id id visé
  * @return booléen
  */
 
-    public function remove($use_id){
+    public function remove($rec_id){
 
         $ret = false;
 
-        $sql = " DELETE FROM tpj_users_recipes WHERE use_id = :use_id ";
+        $sql = " DELETE FROM tpj_recipes_fit_diets WHERE rec_id = :rec_id ";
 
         $req = $this->bdd->prepare($sql);
-        $req->bindParam(":use_id", $use_id);
+        $req->bindParam(":rec_id", $rec_id);
 
         try{
             $req->execute();

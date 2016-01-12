@@ -1,42 +1,54 @@
-<?php 
-	$data = unserialize($_SESSION['data']);
+<!-- <div name="tableau">
+	<div name="jourdelasemaine">
+		<span>Lundi</span>
+		<span>Mardi</span>
+		<span>Mercredi</span>
+		<span>Jeudi</span>
+		<span>Vendredi</span>
+		<span>Samedi</span>
+		<span>Dimanche</span>
+	</div>
+	<div name="semaine1">
+		<div>
+			<div matin>
+				<span>Repas</span><span>title</span>
+			</div>
 
-	$nbrJour = $data['periodeData']['nbrJour'];
-	$listRec = $data['listRec'];
-	$date = Time();
-	$weekDay = Date("N", $date);
+			<div midi>
+				<span>entrée</span><span>title</span>
+				<span>plat</span><span>title</span>
+				<span>dessert</span><span>title</span>
 
-	//temporaire : la bdd est trop petite
+			</div>
 
-	if(count($listRec) > $nbrJour){
-		$listRecTemp = array();
-		for($i = 0; $i < $nbrJour; $i++){
-			$listRecTemp[0] = $listRec[$i];
-		}
-		$listRec = $listRecTemp;
-	}
+			<div soir>
+			</div>
 
-	while(count($listRec) < $nbrJour){
-		$listRec = array_merge($listRec, $data['listRec']);
-	};
+		</div>
+		
+		<div>
+			
+		</div>
 
+		<div>
+			
+		</div>
 
-	//fin de la prtie temporaire
+		<div>
+			
+		</div>
 
-	$listTitle = array();
-	include "1-models/DAO/recipeDAO.php";
-	$i = 0;
-	foreach ($listRec as $key => $value) {
-		//$value = indice recette; on va récupérer les titres
+		<div>
+			
+		</div>
 
-		$listTitle[$i] = array(
-			'rec_id' => $value,
-			'title' => getRecipeTitle($value)
-		);
-		$i++;
-	};
-	$listTitleCounter = 0;
-	$endList = count($listTitle);
+		<div>
+			
+		</div>
 
+		<div>
+			
+		</div>
 
- ?>
+	</div>
+</div> -->

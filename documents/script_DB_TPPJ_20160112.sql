@@ -11,13 +11,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Export de la structure de la base pour tppjdb
-DROP DATABASE IF EXISTS `tppjdb`;
-CREATE DATABASE IF NOT EXISTS `tppjdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
-USE `tppjdb`;
+CREATE DATABASE IF NOT EXISTS `tppjfryodljokeur` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+USE `tppjfryodljokeur`;
 
 
 -- Export de la structure de table tppjdb. tpj_countries
-DROP TABLE IF EXISTS `tpj_countries`;
 CREATE TABLE IF NOT EXISTS `tpj_countries` (
   `cou_code` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
   `cou_name` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -280,7 +278,6 @@ REPLACE INTO `tpj_countries` (`cou_code`, `cou_name`) VALUES
 
 
 -- Export de la structure de table tppjdb. tpj_courses
-DROP TABLE IF EXISTS `tpj_courses`;
 CREATE TABLE IF NOT EXISTS `tpj_courses` (
   `crs_id` int(11) NOT NULL AUTO_INCREMENT,
   `crs_label` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -298,7 +295,6 @@ REPLACE INTO `tpj_courses` (`crs_id`, `crs_label`) VALUES
 
 
 -- Export de la structure de table tppjdb. tpj_diets
-DROP TABLE IF EXISTS `tpj_diets`;
 CREATE TABLE IF NOT EXISTS `tpj_diets` (
   `die_id` int(11) NOT NULL AUTO_INCREMENT,
   `die_label` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -315,7 +311,6 @@ REPLACE INTO `tpj_diets` (`die_id`, `die_label`) VALUES
 
 
 -- Export de la structure de table tppjdb. tpj_ingredients
-DROP TABLE IF EXISTS `tpj_ingredients`;
 CREATE TABLE IF NOT EXISTS `tpj_ingredients` (
   `ing_id` int(11) NOT NULL AUTO_INCREMENT,
   `ing_label` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -331,7 +326,6 @@ CREATE TABLE IF NOT EXISTS `tpj_ingredients` (
 
 
 -- Export de la structure de table tppjdb. tpj_meals
-DROP TABLE IF EXISTS `tpj_meals`;
 CREATE TABLE IF NOT EXISTS `tpj_meals` (
   `mea_id` int(11) NOT NULL AUTO_INCREMENT,
   `mea_label` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -348,7 +342,6 @@ REPLACE INTO `tpj_meals` (`mea_id`, `mea_label`) VALUES
 
 
 -- Export de la structure de table tppjdb. tpj_permissions
-DROP TABLE IF EXISTS `tpj_permissions`;
 CREATE TABLE IF NOT EXISTS `tpj_permissions` (
   `per_id` int(11) NOT NULL AUTO_INCREMENT,
   `per_label` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -378,7 +371,6 @@ REPLACE INTO `tpj_permissions` (`per_id`, `per_label`, `per_desc`) VALUES
 
 
 -- Export de la structure de table tppjdb. tpj_recipes
-DROP TABLE IF EXISTS `tpj_recipes`;
 CREATE TABLE IF NOT EXISTS `tpj_recipes` (
   `rec_id` int(11) NOT NULL AUTO_INCREMENT,
   `rec_title` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -388,15 +380,31 @@ CREATE TABLE IF NOT EXISTS `tpj_recipes` (
   PRIMARY KEY (`rec_id`),
   KEY `FK_tpj_recipes_cou_code` (`cou_code`),
   CONSTRAINT `FK_tpj_recipes_cou_code` FOREIGN KEY (`cou_code`) REFERENCES `tpj_countries` (`cou_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Export de données de la table tppjdb.tpj_recipes : ~1 rows (environ)
+-- Export de données de la table tppjdb.tpj_recipes : ~3 rows (environ)
 /*!40000 ALTER TABLE `tpj_recipes` DISABLE KEYS */;
+REPLACE INTO `tpj_recipes` (`rec_id`, `rec_title`, `rec_link`, `rec_tppj`, `cou_code`) VALUES
+	(9, 'Crêpes', 'http://www.marmiton.org/recettes/recette_crepes_11041.aspx', '0', 'FRA'),
+	(10, 'Pain au chocolat', 'Boulangerie', '0', 'FRA'),
+	(11, 'Choucroutte', 'http://www.marmiton.org/recettes/recette_choucroute_20312.aspx', '0', 'FRA'),
+	(12, 'Crêpes à la farine d\'épeautre', 'http://www.marmiton.org/recettes/recette_crepes-a-la-farine-d-epeautre_314770.aspx', '0', 'FRA'),
+	(13, 'Mini-charlotte au chocolat', 'http://www.marmiton.org/recettes/recette_mini-charlotte-au-chocolat_223388.aspx', '0', 'FRA'),
+	(14, 'Cotes de porc aux champignons', 'http://www.marmiton.org/recettes/recette_cotes-de-porc-aux-champignons_339699.aspx', '0', 'FRA'),
+	(15, 'Millassine rapide', 'http://www.marmiton.org/recettes/recette_millassine-rapide_18523.aspx', '0', 'FRA'),
+	(16, 'Velouté de châtaigne d\'eau', 'http://www.marmiton.org/recettes/recette_veloute-de-chataigne-d-eau_309773.aspx', '0', 'FRA'),
+	(17, 'Poulet au vin rouge et aux cèpes à la cocotte minute', 'http://www.marmiton.org/recettes/recette_poulet-au-vin-rouge-et-aux-cepes-a-la-cocotte-minute_232723.aspx', '0', 'FRA'),
+	(18, 'Cake épinards, thon, feta', 'http://www.marmiton.org/recettes/recette_cake-epinards-thon-feta_42951.aspx', '0', 'FRA'),
+	(19, 'Flan de courgettes en dessert', 'http://www.marmiton.org/recettes/recette_flan-de-courgettes-en-dessert_17972.aspx', '0', 'FRA'),
+	(20, 'Salade d\'oranges à la vinaigrette', 'http://www.marmiton.org/recettes/recette_salade-d-oranges-a-la-vinaigrette_26747.aspx', '0', 'FRA'),
+	(21, 'Poulet à la grecque', 'http://www.marmiton.org/recettes/recette_poulet-a-la-grecque_28306.aspx', '0', 'FRA'),
+	(22, 'Escalopes de poulet au curry et amandes', 'http://www.marmiton.org/recettes/recette_escalopes-de-poulet-au-curry-et-amandes_165292.aspx', '0', 'FRA'),
+	(23, 'Gâteau Breton à la Bergamote', 'http://www.marmiton.org/recettes/recette_gateau-breton-a-la-bergamote_22808.aspx', '0', 'FRA'),
+	(24, 'Quiche au thon et à la tomate', 'http://www.marmiton.org/recettes/recette_quiche-au-thon-et-a-la-tomate_80676.aspx', '0', 'FRA');
 /*!40000 ALTER TABLE `tpj_recipes` ENABLE KEYS */;
 
 
 -- Export de la structure de table tppjdb. tpj_recipes_contain_ingredients
-DROP TABLE IF EXISTS `tpj_recipes_contain_ingredients`;
 CREATE TABLE IF NOT EXISTS `tpj_recipes_contain_ingredients` (
   `quantity` int(11) NOT NULL,
   `ing_id` int(11) NOT NULL,
@@ -413,7 +421,6 @@ CREATE TABLE IF NOT EXISTS `tpj_recipes_contain_ingredients` (
 
 
 -- Export de la structure de table tppjdb. tpj_recipes_fit_diets
-DROP TABLE IF EXISTS `tpj_recipes_fit_diets`;
 CREATE TABLE IF NOT EXISTS `tpj_recipes_fit_diets` (
   `rec_id` int(11) NOT NULL,
   `die_id` int(11) NOT NULL,
@@ -423,13 +430,39 @@ CREATE TABLE IF NOT EXISTS `tpj_recipes_fit_diets` (
   CONSTRAINT `FK_tpj_recipes_fit_diets_rec_id` FOREIGN KEY (`rec_id`) REFERENCES `tpj_recipes` (`rec_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Export de données de la table tppjdb.tpj_recipes_fit_diets : ~0 rows (environ)
+-- Export de données de la table tppjdb.tpj_recipes_fit_diets : ~7 rows (environ)
 /*!40000 ALTER TABLE `tpj_recipes_fit_diets` DISABLE KEYS */;
+REPLACE INTO `tpj_recipes_fit_diets` (`rec_id`, `die_id`) VALUES
+	(9, 1),
+	(10, 1),
+	(11, 1),
+	(12, 1),
+	(13, 1),
+	(14, 1),
+	(15, 1),
+	(16, 1),
+	(17, 1),
+	(18, 1),
+	(19, 1),
+	(20, 1),
+	(21, 1),
+	(22, 1),
+	(23, 1),
+	(24, 1),
+	(9, 2),
+	(10, 2),
+	(12, 2),
+	(13, 2),
+	(15, 2),
+	(16, 2),
+	(19, 2),
+	(20, 2),
+	(23, 2),
+	(20, 3);
 /*!40000 ALTER TABLE `tpj_recipes_fit_diets` ENABLE KEYS */;
 
 
 -- Export de la structure de table tppjdb. tpj_recipes_for_courses
-DROP TABLE IF EXISTS `tpj_recipes_for_courses`;
 CREATE TABLE IF NOT EXISTS `tpj_recipes_for_courses` (
   `crs_id` int(11) NOT NULL,
   `rec_id` int(11) NOT NULL,
@@ -440,13 +473,31 @@ CREATE TABLE IF NOT EXISTS `tpj_recipes_for_courses` (
   CONSTRAINT `FK_tpj_recipes_for_courses_tpj_recipes` FOREIGN KEY (`rec_id`) REFERENCES `tpj_recipes` (`rec_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Export de données de la table tppjdb.tpj_recipes_for_courses : ~1 rows (environ)
+-- Export de données de la table tppjdb.tpj_recipes_for_courses : ~3 rows (environ)
 /*!40000 ALTER TABLE `tpj_recipes_for_courses` DISABLE KEYS */;
+REPLACE INTO `tpj_recipes_for_courses` (`crs_id`, `rec_id`) VALUES
+	(1, 16),
+	(1, 18),
+	(1, 20),
+	(1, 24),
+	(2, 10),
+	(2, 11),
+	(2, 14),
+	(2, 17),
+	(2, 18),
+	(2, 21),
+	(2, 22),
+	(2, 24),
+	(3, 9),
+	(3, 12),
+	(3, 13),
+	(3, 15),
+	(3, 19),
+	(3, 23);
 /*!40000 ALTER TABLE `tpj_recipes_for_courses` ENABLE KEYS */;
 
 
 -- Export de la structure de table tppjdb. tpj_recipes_is_meals
-DROP TABLE IF EXISTS `tpj_recipes_is_meals`;
 CREATE TABLE IF NOT EXISTS `tpj_recipes_is_meals` (
   `rec_id` int(11) NOT NULL,
   `mea_id` int(11) NOT NULL,
@@ -456,13 +507,47 @@ CREATE TABLE IF NOT EXISTS `tpj_recipes_is_meals` (
   CONSTRAINT `FK_tpj_recipes_is_meals_rec_id` FOREIGN KEY (`rec_id`) REFERENCES `tpj_recipes` (`rec_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Export de données de la table tppjdb.tpj_recipes_is_meals : ~1 rows (environ)
+-- Export de données de la table tppjdb.tpj_recipes_is_meals : ~3 rows (environ)
 /*!40000 ALTER TABLE `tpj_recipes_is_meals` DISABLE KEYS */;
+REPLACE INTO `tpj_recipes_is_meals` (`rec_id`, `mea_id`) VALUES
+	(9, 1),
+	(9, 2),
+	(9, 3),
+	(10, 1),
+	(11, 2),
+	(11, 3),
+	(12, 1),
+	(12, 2),
+	(12, 3),
+	(13, 2),
+	(13, 3),
+	(14, 2),
+	(14, 3),
+	(15, 2),
+	(15, 3),
+	(16, 2),
+	(16, 3),
+	(17, 2),
+	(17, 3),
+	(18, 2),
+	(18, 3),
+	(19, 1),
+	(19, 2),
+	(19, 3),
+	(20, 2),
+	(20, 3),
+	(21, 3),
+	(22, 2),
+	(22, 3),
+	(23, 1),
+	(23, 2),
+	(23, 3),
+	(24, 2),
+	(24, 3);
 /*!40000 ALTER TABLE `tpj_recipes_is_meals` ENABLE KEYS */;
 
 
 -- Export de la structure de table tppjdb. tpj_roles
-DROP TABLE IF EXISTS `tpj_roles`;
 CREATE TABLE IF NOT EXISTS `tpj_roles` (
   `rol_id` int(11) NOT NULL AUTO_INCREMENT,
   `rol_label` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -478,7 +563,6 @@ REPLACE INTO `tpj_roles` (`rol_id`, `rol_label`) VALUES
 
 
 -- Export de la structure de table tppjdb. tpj_roles_has_permissions
-DROP TABLE IF EXISTS `tpj_roles_has_permissions`;
 CREATE TABLE IF NOT EXISTS `tpj_roles_has_permissions` (
   `rol_id` int(11) NOT NULL,
   `per_id` int(11) NOT NULL,
@@ -514,7 +598,6 @@ REPLACE INTO `tpj_roles_has_permissions` (`rol_id`, `per_id`) VALUES
 
 
 -- Export de la structure de table tppjdb. tpj_units
-DROP TABLE IF EXISTS `tpj_units`;
 CREATE TABLE IF NOT EXISTS `tpj_units` (
   `unt_id` int(11) NOT NULL AUTO_INCREMENT,
   `unt_label` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -542,7 +625,6 @@ REPLACE INTO `tpj_units` (`unt_id`, `unt_label`, `unt_desc`) VALUES
 
 
 -- Export de la structure de table tppjdb. tpj_users
-DROP TABLE IF EXISTS `tpj_users`;
 CREATE TABLE IF NOT EXISTS `tpj_users` (
   `use_id` int(11) NOT NULL AUTO_INCREMENT,
   `use_login` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -563,7 +645,6 @@ REPLACE INTO `tpj_users` (`use_id`, `use_login`, `use_password`, `use_lastname`,
 
 
 -- Export de la structure de table tppjdb. tpj_users_get_roles
-DROP TABLE IF EXISTS `tpj_users_get_roles`;
 CREATE TABLE IF NOT EXISTS `tpj_users_get_roles` (
   `use_id` int(11) NOT NULL,
   `rol_id` int(11) NOT NULL,
@@ -582,7 +663,6 @@ REPLACE INTO `tpj_users_get_roles` (`use_id`, `rol_id`) VALUES
 
 
 -- Export de la structure de table tppjdb. tpj_users_recipes
-DROP TABLE IF EXISTS `tpj_users_recipes`;
 CREATE TABLE IF NOT EXISTS `tpj_users_recipes` (
   `use_id` int(11) NOT NULL,
   `rec_id` int(11) NOT NULL,

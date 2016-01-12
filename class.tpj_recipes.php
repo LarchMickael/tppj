@@ -141,6 +141,8 @@ class tpj_recipes{
 					  ." rec_title, "
 					  ." rec_link, "
 					  ." rec_tppj, "
+					  ." mea_id, "
+					  ." die_id, "
 					  ." cou_code "
 		      ." FROM tpj_recipes "
 		      ." WHERE rec_id = :rec_id ";
@@ -160,6 +162,8 @@ class tpj_recipes{
 			$this->rec_title = $res["rec_title"];
 			$this->rec_link = $res["rec_link"];
 			$this->rec_tppj = $res["rec_tppj"];
+			$this->mea_id = $res["mea_id"];
+			$this->die_id = $res["die_id"];
 			$this->cou_code = $res["cou_code"];
 
 			$ret = true;
@@ -181,6 +185,8 @@ class tpj_recipes{
 					  ." rec_title, "
 					  ." rec_link, "
 					  ." rec_tppj, "
+					  ." mea_id, "
+					  ." die_id, "
 					  ." cou_code "
               ." FROM tpj_recipes ";
         if(!empty($filter) && isset($filter)){
@@ -202,36 +208,6 @@ class tpj_recipes{
 
     }
 
-    /**
-     * Vérifie la présence dans la base tpj_recipes de l'id passé en paramêtre
-     * @param String $rec_if id recherché
-     * @return booléen : true si existe
-     */    
-
-    public function isRecipeExist($rec_id){
-
-        $ret = false;
-
-        $sql = " SELECT rec_title "
-              ." FROM tpj_recipes "
-              ." WHERE rec_id = :rec_id ";
-
-        $req = $this->bdd->prepare($sql);
-        $req->bindParam(":rec_id", $rec_id);
-
-        try {
-            $req->execute();
-            if ($req->rowCount() > 0) {
-                $ret = true;
-            }
-        } catch (PDOException $ex) {
-            die("Erreur PDO : ".$ex);
-        }
-
-        return $ret;
-
-    }
-
 /**
  * Récupérer l'objet dans la base de données
  * @param 
@@ -245,16 +221,22 @@ class tpj_recipes{
         $sql = " INSERT INTO tpj_recipes ( rec_title, "
 						." rec_link, "
 						." rec_tppj, "
+						." mea_id, "
+						." die_id, "
 						." cou_code ) "
               ." VALUES ( :rec_title, "
 						." :rec_link, "
 						." :rec_tppj, "
+						." :mea_id, "
+						." :die_id, "
 						." :cou_code ) ";
 
         $req = $this->bdd->prepare($sql);
         $req->bindParam(":rec_title", $this->rec_title);
         $req->bindParam(":rec_link", $this->rec_link);
         $req->bindParam(":rec_tppj", $this->rec_tppj);
+        $req->bindParam(":mea_id", $this->mea_id);
+        $req->bindParam(":die_id", $this->die_id);
         $req->bindParam(":cou_code", $this->cou_code);
 
         try{
@@ -284,6 +266,8 @@ class tpj_recipes{
 				." SET rec_title = :rec_title, "
 					 ." rec_link = :rec_link, "
 					 ." rec_tppj = :rec_tppj, "
+					 ." mea_id = :mea_id, "
+					 ." die_id = :die_id, "
 					 ." cou_code = :cou_code "
                 ." WHERE rec_id = :rec_id ";
 
@@ -292,6 +276,8 @@ class tpj_recipes{
         $req->bindParam(":rec_title", $this->rec_title);
         $req->bindParam(":rec_link", $this->rec_link);
         $req->bindParam(":rec_tppj", $this->rec_tppj);
+        $req->bindParam(":mea_id", $this->mea_id);
+        $req->bindParam(":die_id", $this->die_id);
         $req->bindParam(":cou_code", $this->cou_code);
 
         try{

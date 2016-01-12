@@ -34,23 +34,37 @@
 					</span>
 					<!-- Type de repas -->
 					<span class="span_form">
-						<label class="span_form_label" for="mea_id">Type de repas ?</label>
-						<select name="mea_id" id="mea_id">
-						<?php  foreach ($mealsList as $meal) {
-							if($recipes->mea_id = $meal['mea_id']) {
-								?> <option selected value="<?php echo $meal['mea_id'] ?>"><?php echo $meal['mea_label'] ?></option> <?php
-							} else {
-								?> <option value="<?php echo $meal['mea_id'] ?>"><?php echo $meal['mea_label'] ?></option> <?php
-							}
+						<label class="span_form_label" >Type de repas ?</label>
+						<?php  foreach ($mealsFullList as $meal) {
+									if(isValSet($mealsList, $meal['mea_id'])){
+											?> <input checked type="checkbox" name='mea_id[]' id='<?php echo $meal["mea_label"] ?>' value='<?php echo $meal["mea_id"] ?>' /> <?php
+											?> <label class="span_form_label" for="<?php echo $meal["mea_label"] ?>"><?php echo $meal["mea_label"] ?></label> <?php
+									} else {
+											?> <input type="checkbox" name='mea_id[]' id='<?php echo $meal["mea_label"] ?>' value='<?php echo $meal["mea_id"] ?>' /> <?php
+											?> <label class="span_form_label" for="<?php echo $meal["mea_label"] ?>"><?php echo $meal["mea_label"] ?></label> <?php
+									}
 						} ?>
-						</select>
 					</span>
+					<!-- Type de plat -->
+					<span class="span_form">
+						<label class="span_form_label" >Type de plat ?</label>
+					<?php foreach ($coursesFullList as $course) {
+									if(isValSet($coursesList, $course['crs_id'])){
+										?> <input checked type="checkbox" name='crs_id[]' id='<?php echo $course["crs_label"] ?>' value='<?php echo $course["crs_id"] ?>' /> <?php
+										?> <label class="span_form_label" for="<?php echo $course["crs_label"] ?>"><?php echo $course["crs_label"] ?></label> <?php
+									} else {
+										?> <input type="checkbox" name='crs_id[]' id='<?php echo $course["crs_label"] ?>' value='<?php echo $course["crs_id"] ?>' /> <?php
+										?> <label class="span_form_label" for="<?php echo $course["crs_label"] ?>"><?php echo $course["crs_label"] ?></label> <?php
+									}
+						} ?>
+					</span>
+
 					<!-- Type de régime alimentaire -->
 					<span class="span_form">
 						<label class="span_form_label" for="rec_tppj">Type de régime alimentaire ?</label>
 						<select name="die_id" id="die_id">
-						<?php foreach ($dietsList as $diet) {
-							if($recipes->die_id = $diet['die_id']) {
+						<?php foreach ($dietsFullList as $diet) {
+							if(sizeof($dietsList) == $diet['die_id']) {
 								?> <option selected value="<?php echo $diet['die_id'] ?>"><?php echo $diet['die_label'] ?></option> <?php
 							} else {
 								?> <option value="<?php echo $diet['die_id'] ?>"><?php echo $diet['die_label'] ?></option> <?php
@@ -62,7 +76,7 @@
 					<span class="span_form">
 						<label class="span_form_label" for="rec_tppj">Pays d'origine ?</label>
 						<select name="cou_code" id="cou_code">
-						<?php foreach ($countriesList as $country) {
+						<?php foreach ($countriesFullList as $country) {
 							if($country['cou_code'] == $recipes->cou_code) {
 								?> <option selected value="<?php echo $country['cou_code'] ?>"><?php echo $country['cou_name'] ?></option> <?php
 							} else {

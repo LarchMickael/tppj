@@ -174,7 +174,7 @@ class tpj_users{
         if(!empty($filter) && isset($filter)){
             $sql .=  " WHERE ". $filter;
         }
-            $sql .=      " ORDER BY use_login ";
+        //$sql .=      " ORDER BY  ";
 
         $req = $this->bdd->prepare($sql);
 
@@ -197,6 +197,7 @@ class tpj_users{
  */
 
     public function add(){
+
 	    $ret = false;
 
         $sql = " INSERT INTO tpj_users ( use_login, "
@@ -255,7 +256,7 @@ class tpj_users{
         $req->bindParam(":use_lastname", $this->use_lastname);
         $req->bindParam(":use_firstname", $this->use_firstname);
         $req->bindParam(":use_mail", $this->use_mail);
-        
+
         try{
             $req->execute();
             $ret = true;
@@ -279,6 +280,7 @@ class tpj_users{
         $ret = false;
 
         $sql = " DELETE FROM tpj_users WHERE use_id = :use_id ";
+
         $req = $this->bdd->prepare($sql);
         $req->bindParam(":use_id", $use_id);
 
@@ -292,189 +294,5 @@ class tpj_users{
         return $ret;
 
     }
-
-    /**
-     * Vérifie la présence dans la base tpj_users du login passé en paramêtre
-     * @param String $use_login login recherché
-     * @return booléen
-     */    
-
-    public function isLoginExist($use_login){
-
-        $ret = false;
-
-        $sql = " SELECT use_login "
-              ." FROM tpj_users "
-              ." WHERE use_login = :use_login ";
-
-        $req = $this->bdd->prepare($sql);
-        $req->bindParam(":use_login", $use_login);
-
-        try {
-            $req->execute();
-            if ($req->rowCount() > 0) {
-                $ret = true;
-            }
-        } catch (PDOException $ex) {
-            die("Erreur PDO : ".$ex);
-        }
-
-        return $ret;
-
-    }
-
-    /**
-     * Récupère les informations d'un utilisateur en fonction de son login
-     * @param  string $use_login login a chercher
-     * @return booléen true si ok
-     */
-
-    public function getByLogin($use_login){
-        $ret = false;
-
-        $sql = " SELECT use_id, use_login, use_password, use_lastname, use_firstname, use_mail "
-              ." FROM tpj_users "
-              ." WHERE use_login = :use_login ";
-        $req = $this->bdd->prepare($sql);
-        $req->bindParam(":use_login", $use_login);
-        
-        try{
-            $req->execute();
-        } catch (PDOException $ex) {
-            die('Erreur PDO : '.$ex);
-        }
-
-        if($req->rowCount() > 0){
-            $ret = true;            
-            $res = $req->fetch(PDO::FETCH_ASSOC);
-            $this->use_id = $res['use_id'];
-            $this->use_login = $res['use_login'];
-            $this->use_password = $res['use_password'];
-            $this->use_lastname = $res['use_lastname'];
-            $this->use_firstname = $res['use_firstname'];
-            $this->use_mail = $res['use_mail'];
-
-        } else {
-            return false;
-        }
-        return $ret;
-    }
-
-    /**
-     * Récupère les rôles d'un utilisateur en fonction de son id
-     * @param  int use _id $use_id id visé
-     * @return array rôles de l'utilsateur
-     */
-
-    public function getRoles($use_id = null){
-        $ret = false;
-
-        $sql = " SELECT rol_id "
-              ." FROM tpj_users_get_roles "
-              ." WHERE use_id = :use_id ";
-        $req = $this->bdd->prepare($sql);
-        if ($use_id == null) {
-            $req->bindParam(":use_id", $this->use_id);
-        } else {
-            $req->bindParam(":use_id", $use_id);
-        }        
-        try{
-            $req->execute();
-        } catch (PDOException $ex) {
-            die('Erreur PDO : '.$ex);
-        }
-        
-        $ret = $req->fetchAll(PDO::FETCH_ASSOC);
-
-        return $ret;
-    }
-
-    /**
-     * Récupère les permissions d'un utilisateur en fonction de son id
-     * @param  int use _id $use_id id visé
-     * @return array permissions de l'utilsateur
-     */
-
-    public function getPermissions($use_id = null){
-        $ret = false;
-
-        $sql = " SELECT per_label "
-              ." FROM tpj_permissions "
-              ." WHERE per_id IN "
-              ."    (SELECT DISTINCT per_id "
-              ."    FROM tpj_roles_has_permissions "
-              ."    WHERE rol_id IN "
-              ."        (SELECT rol_id "
-              ."        FROM tpj_users_get_roles "
-              ."        WHERE use_id = :use_id)) ";
-        $req = $this->bdd->prepare($sql);
-        if ($use_id == null) {
-            $req->bindParam(":use_id", $this->use_id);
-        } else {
-            $req->bindParam(":use_id", $use_id);
-        }
-        
-        try{
-            $req->execute();
-        } catch (PDOException $ex) {
-            die('Erreur PDO : '.$ex);
-        }
-        
-        $ret = $req->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach($ret as &$val){
-            $val = $val['per_label'];
-        }
-
-        return $ret;
-    }    
-
-    /**
-     * Vérifie le bon formatage du login (email)
-     * @param  string $use_login login a tester
-     * @return booléen true si ok
-     */
-
-    public function checkLogin($use_login){
-        $ret = false;
-
-        $ret = preg_match('/^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\.\- \']+@[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\.\- \']+\.[a-z]{2,3}$/', $use_login);
-
-        return $ret;
-    }
-
-
-    /**
-     * Vérifie le bon formatage du password (6 à 40 caractères non blanc)
-     * @param  string $use_password password a tester
-     * @return booléen true si ok
-     */
-    public function checkPass($use_password){
-        $ret = false;
-
-        $ret = preg_match('/^[^\s]{6,40}$/', $use_password);
-
-        return $ret;
-    }
-
-    /**
-     * connect un utilisateur si le login et MDP sont corrects
-     * @param  string $login login
-     * @param  string $pass  mot de passe
-     * @return booléen true si ok
-     */
-    public function connectUser($use_login,$use_password){
-        $ret = false;
-
-        $loginUser = new tpj_users();
-        $loginUser->getByLogin($use_login);
-        if(password_verify($use_password, $loginUser->use_password)){
-            $this->get($loginUser->use_id);
-            $ret = true;
-        }
-        return $ret;
-
-    }
-
 }
 ?>

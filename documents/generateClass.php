@@ -27,7 +27,7 @@ function createFiles($datas){
 
 function createFile($table, $champs){
 
-	$champsImplode = implode(', "'."\n".'					  ."', $champs);
+	$champsImplode = implode(', "'."\n".'					  ." ', $champs);
 
 	$file ='<?php'.PHP_EOL;
 	$file.='include_once(\'1-models/DAO/class.CPDO.php\');'.PHP_EOL;
@@ -175,8 +175,8 @@ function createFile($table, $champs){
 
 	$addArray = $champs;
 	array_shift($addArray);
-	$insertFields = implode(', "'."\n".'						."', $addArray);
-	$valuesFields = implode(', "'."\n".'						.":', $addArray);
+	$insertFields = implode(', "'."\n".'						." ', $addArray);
+	$valuesFields = implode(', "'."\n".'						." :', $addArray);
 
 	$file.='    public function add(){'.PHP_EOL;
 	$file.=''.PHP_EOL;
@@ -213,7 +213,7 @@ function createFile($table, $champs){
 		$var = $field.' = :'.$field;
 		array_push($updateFields, $var);
 	}
-	$implodeUpdateFields = implode(', "'."\n".'					 ."', $updateFields);
+	$implodeUpdateFields = implode(', "'."\n".'					 ." ', $updateFields);
 
 
 	$file.='/**'.PHP_EOL;
