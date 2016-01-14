@@ -17,11 +17,11 @@
                 <fieldset class="choice">
                     <legend><?php echo $content['choice_meal']; ?></legend>
                     <label for="morning"><?php echo $content['choice_meal_morning']; ?></label>
-                    <input type="checkbox" name="morning" value="matin" id="morning" checked />
+                    <input type="checkbox" name="morning" value="true" id="morning" checked />
                     <label for="noon"><?php echo $content['choice_meal_noon']; ?></label>
-                    <input type="checkbox" name="noon" value="midi" id="noon" checked />
+                    <input type="checkbox" name="noon" value="true" id="noon" checked />
                     <label for="evening"><?php echo $content['choice_meal_evening']; ?></label>
-                    <input type="checkbox" name="evening" value="soir" id="evening" checked />
+                    <input type="checkbox" name="evening" value="true" id="evening" checked />
                 </fieldset>
                 <fieldset class="choice">
                     <legend><?php echo $content['choice_span']; ?></legend>

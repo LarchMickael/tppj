@@ -2,16 +2,7 @@
     $content_file = file_get_contents('assets/content/content.json');
     $content = json_decode($content_file, TRUE);
 
-    function isValSet($array, $val) {
-    	$ret = false;
-    	foreach ($array as $value) {
-    		if($value == $val)  {
-    			$ret = true;
-    		}
-    	}
-
-    	return $ret;
-    }
+    include_once 'helpers/my-library.php';
 
 	session_start();
 	if (!isset($_GET['page'])){
